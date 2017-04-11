@@ -1,0 +1,24 @@
+{
+    "name": "samiaraboglu/fb-messenger-bot-php",
+    "type": "library",
+    "description": "",
+    "keywords": ["php", "facebook", "messenger", "facebook-messenger", "facebook-messenger-bot"],
+    "homepage": "https://github.com/samiaraboglu/fb-messenger-bot-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sami Araboğlu",
+            "email": "samiaraboglu@gmail.com",
+            "homepage": "https://github.com/samiaraboglu",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "FbMessengerBot\\": "src"
+        }
+    }
+}
