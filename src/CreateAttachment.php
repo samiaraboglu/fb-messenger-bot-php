@@ -5,7 +5,7 @@ namespace FbMessengerBot;
 class CreateAttachment {
     CONST TEXT_LIMIT = 640;
 
-    public static function create($type, $messageText, $answerText)
+    public static function item($type, $messageText, $answerText)
     {
         return CreateAttachment::populate($type, $messageText, $answerText);
     }

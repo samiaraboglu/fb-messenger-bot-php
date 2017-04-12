@@ -3,7 +3,7 @@
 namespace FbMessengerBot;
 
 class CreateTemplate {
-    public static function create($messageText, $payload)
+    public static function item($messageText, $payload)
     {
         return CreateTemplate::populate($messageText, $payload);
     }
