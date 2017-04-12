@@ -37,7 +37,7 @@ class CreateAttachment {
             $answer->setAttachment($attachment);
         } else {
             $answer = new Answer();
-            $answer->setText(substr($answerText, 0, $this::TEXT_LIMIT));
+            $answer->setText(substr($answerText, 0, CreateAttachment::TEXT_LIMIT));
         }
 
         return $answer;
