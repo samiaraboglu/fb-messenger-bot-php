@@ -2,156 +2,164 @@
 
 namespace FbMessengerBot;
 
-class Messenger {
-    public $config;
-    public $item;
-    public $senderId;
-    public $message;
-    public $answer;
+/**
+ * Class Messenger
+ * 
+ */
+class Messenger
+{
+    /**
+     * Post request type 
+     */
+    const TYPE_POST = 'POST';
 
+    /**
+     *
+     * @var string
+     */
+    protected $url = 'https://graph.facebook.com/v2.11/';
+
+    /**
+     *
+     * @var string
+     */
+    protected $accessToken;
+
+    /**
+     * @var string
+     */
+    protected $verifyToken;
+
+    /**
+     * @var Body
+     */
+    protected $body;
+
+    /**
+     * Messenger constructor
+     *
+     * @param array $config Config
+     */
     public function __construct($config)
     {
-        $this->config = $config;
-    }
+        $this->setAccessToken($config['access_token']);
 
-    public function setItem(Item $item)
-    {
-        $this->item[] = $item;
-    }
-
-    public function getItem()
-    {
-        return $this->item;
-    }
-
-    public function setSenderId($senderId)
-    {
-        $this->senderId = $senderId;
-    }
-
-    public function getSenderId()
-    {
-        return $this->senderId;
-    }
-
-    public function setMessage(Message $message)
-    {
-        $this->message = $message;
-    }
-
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    public function setAnswer(Answer $answer)
-    {
-        $this->answer = $answer;
-    }
-
-    public function getAnswer()
-    {
-        return $this->answer;
-    }
-
-    public function listen()
-    {
-        if (!empty($_REQUEST['hub_verify_token']) && $_REQUEST['hub_verify_token'] === $this->config->verifiyToken) {
-            echo $_REQUEST['hub_challenge'];
-            exit;
+        if (!empty($config['verify_token'])) {
+            $this->setVerifyToken($config['verify_token']);
         }
         
-        $input = json_decode(file_get_contents('php://input'), true);
-
-        $this->setSenderId($input['entry'][0]['messaging'][0]['sender']['id']);
-
-        if (empty($input['entry'][0]['messaging'][0]['message']['text'])) {
-            return;
-        }
-
-        $message = new Message();
-        $message->setText($input['entry'][0]['messaging'][0]['message']['text']);
-
-        $this->setMessage($message);
-
-        if ($this->getItem()) {
-            foreach ($this->getItem() as $key => $item) {
-                if (preg_match(sprintf('/^%s$/', $item->getMessage()->getText()), $this->getMessage()->getText())) {
-                    $this->setAnswer($item->getAnswer());
-                }
-            }
-        }
     }
 
-    public function send()
+    /**
+     * Set access token
+     *
+     * @param string $accessToken Access token
+     */
+    public function setAccessToken($accessToken)
     {
-        try {
-            if (is_null($this->getAnswer())) {
-                throw new \Exception('Message don\'t send. Because answer not found');
-            }
+        $this->accessToken = $accessToken;
+    }
 
-            $response = [
-                'recipient' => [
-                    'id' => $this->getSenderId()
-                ]
-            ];
+    /**
+     * Get access token
+     *
+     * @return string Access token
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
 
-            if (!empty($this->getAnswer()->getText())) {
-                $response['message'] = [
-                    'text' => $this->getAnswer()->getText()
-                ];
-            }
+    /**
+     * Set verify token
+     *
+     * @param string $verifyToken Verify token
+     */
+    public function setVerifyToken($verifyToken)
+    {
+        $this->verifyToken = $verifyToken;
+    }
 
-            if (
-                !empty($this->getAnswer()->getAttachment()) &&
-                !empty($this->getAnswer()->getAttachment()->getType())
-            ) {
-                $response['message']['attachment']['type'] = $this->getAnswer()->getAttachment()->getType();
-            }
+    /**
+     * Get verify token
+     *
+     * @return string Verify token
+     */
+    public function getVerifyToken()
+    {
+        return $this->verifyToken;
+    }
 
-            if (
-                $this->getAnswer()->getAttachment() &&
-                $this->getAnswer()->getAttachment()->getPayload()
-            ) {
-                $response['message']['attachment']['payload'] = $this->getAnswer()->getAttachment()->getPayload();
-            }
+    /**
+     * Set body
+     *
+     * @param Body $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
 
-            $ch = curl_init('https://graph.facebook.com/v2.6/me/messages?access_token=' . $this->config->accessToken);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    /**
+     * Get body
+     *
+     * @return Body
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
 
-            $apiResult = curl_exec($ch);
+    /**
+     * Send message
+     *
+     * @param int $recipientId Recipient id
+     * @param Message $message
+     *
+     * @return array
+     */
+    public function send($recipientId, Message $message)
+    {
+        $body = new Body;
 
-            $jsonResult = json_decode($apiResult, true);
+        $body->setRecipient($recipientId);
+        $body->setMessage($message);
 
-            if (isset($jsonResult['error'])) {
-                throw new \Exception($apiResult);
-            }
+        $this->setBody($body);
 
-            curl_close($ch);
+        $helper = new Helper;
+        $body = $helper->objectToArray($body);
 
-            return [
-                'success' => true,
-                'message' => $jsonResult,
-                'json' => $response
-            ];
-        } catch (\Exception $exception) {
-            $result['success'] = false;
+        return $this->curl('me/messages', $body);
+    }
 
-            $json = json_decode($exception->getMessage(), true);
+    /**
+     * Request to Facebook API
+     *
+     * @param string $url Url
+     * @param array  $body Body
+     * @param string $type Request type (POST)
+     *
+     * @return array
+     */
+    public function curl($url, $body, $type = self::TYPE_POST)
+    {
+        $body['access_token'] = $this->accessToken;
 
-            if (is_array($json)) {
-                $result['error'] = $json['error'];
-            } else {
-                $result['error'] = [
-                    'message' => $exception->getMessage()
-                ];
-            }
+        $headers = [
+            'Content-Type: application/json',
+        ];
 
-            return $result;
-        }
+        $curl = curl_init($this->url . $url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($body));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return json_decode($response, true);
     }
 }
