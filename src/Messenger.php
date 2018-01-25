@@ -47,7 +47,6 @@ class Messenger
         if (!empty($config['verify_token'])) {
             $this->setVerifyToken($config['verify_token']);
         }
-        
     }
 
     /**
