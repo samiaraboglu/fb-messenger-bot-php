@@ -129,7 +129,7 @@ class Messenger
         $helper = new Helper;
         $body = $helper->objectToArray($body);
 
-        return $this->curl('me/messages', $body);
+        return $this->api('me/messages', $body);
     }
 
     /**
@@ -141,9 +141,11 @@ class Messenger
      *
      * @return array
      */
-    public function curl($url, $body, $type = self::TYPE_POST)
+    public function api($url, $body = null, $type = self::TYPE_POST)
     {
         $body['access_token'] = $this->accessToken;
+
+        $this->setBody($body);
 
         $headers = [
             'Content-Type: application/json',
@@ -160,5 +162,26 @@ class Messenger
         curl_close($curl);
 
         return json_decode($response, true);
+    }
+
+    /**
+     * Listen message
+     *
+     * @return array
+     */
+    public function listen()
+    {
+        if (!empty($_REQUEST['hub_verify_token']) && $_REQUEST['hub_verify_token'] === $this->verifyToken) {
+            echo $_REQUEST['hub_challenge'];
+            exit;
+        }
+
+        $response = json_decode(file_get_contents('php://input'), true);
+
+        if (empty($response['entry'][0]['messaging'][0]['message']['text'])) {
+            return;
+        }
+
+        return $response;
     }
 }
