@@ -192,7 +192,7 @@ class Message
      */
     public function quickReplies($text, $quickReplies)
     {
-        $this->setText('text', $text);
+        $this->setText($text);
 
         foreach ($quickReplies as $quickReplie) {
             $this->setQuickReplies($quickReplie);
