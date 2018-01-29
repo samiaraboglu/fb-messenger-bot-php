@@ -9,9 +9,14 @@ namespace FbMessengerBot;
 class Messenger
 {
     /**
-     * Post request type 
+     * Post request type
      */
     const TYPE_POST = 'POST';
+
+    /**
+     * Get request type
+     */
+    const TYPE_GET = 'GET';
 
     /**
      *
@@ -151,9 +156,17 @@ class Messenger
             'Content-Type: application/json',
         ];
 
+        if ($type == self::TYPE_GET) {
+            $url .= '?'.http_build_query($body);
+        }
+
         $curl = curl_init($this->url . $url);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($body));
+
+        if($type == self::TYPE_POST) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($body));
+        }
+
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -178,8 +191,8 @@ class Messenger
 
         $response = json_decode(file_get_contents('php://input'), true);
 
-        if (empty($response['entry'][0]['messaging'][0]['message']['text'])) {
-            return;
+        if (empty($response['entry'][0]['messaging'][0]['message']['text']) && empty($response['entry'][0]['messaging'][0]['postback']['payload'])) {
+            exit;
         }
 
         return $response;
