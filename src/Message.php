@@ -114,50 +114,70 @@ class Message
      * Populate text
      *
      * @param string $text Text
+     *
+     * @return Message
      */
     public function text($text)
     {
         $this->setText($text);
+
+        return $this;
     }
 
     /**
      * Populate audio
      *
      * @param string $url Url
+     *
+     * @return Message
      */
     public function audio($url)
     {
         $this->setAttachment('audio', ['url' => $url]);
+
+        return $this;
     }
 
     /**
      * Populate video
      *
      * @param string $url Url
+     *
+     * @return Message
      */
     public function video($url)
     {
         $this->setAttachment('video', ['url' => $url]);
+
+        return $this;
     }
 
     /**
      * Populate image
      *
      * @param string $url Url
+     *
+     * @return Message
      */
     public function image($url)
     {
         $this->setAttachment('image', ['url' => $url]);
+
+        return $this;
     }
 
     /**
      * Populate file
      *
      * @param string $url Url
+     *
+     * @return Message
      */
     public function file($url)
     {
         $this->setAttachment('file', ['url' => $url]);
+
+        return $this;
     }
 
     /**
@@ -166,6 +186,8 @@ class Message
      * @param string $text Text
      * @param string $title Title
      * @param array $payload Payload
+     *
+     * @return Message
      */
     public function call($text, $title, $payload)
     {
@@ -182,6 +204,8 @@ class Message
         ];
 
         $this->setAttachment('template', $payload);
+
+        return $this;
     }
 
     /**
@@ -189,6 +213,8 @@ class Message
      *
      * @param string $text Text
      * @param array $quickReplies Quick replies
+     *
+     * @return Message
      */
     public function quickReplies($text, $quickReplies)
     {
@@ -197,6 +223,8 @@ class Message
         foreach ($quickReplies as $quickReplie) {
             $this->setQuickReplies($quickReplie);
         }
+
+        return $this;
     }
 
     /**
@@ -204,6 +232,8 @@ class Message
      *
      * @param string $text Text
      * @param array $buttons Buttons
+     *
+     * @return Message
      */
     public function button($text, $buttons)
     {
@@ -214,5 +244,7 @@ class Message
         ];
 
         $this->setAttachment('template', $payload);
+
+        return $this;
     }
 }
