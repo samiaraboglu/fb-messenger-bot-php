@@ -189,12 +189,6 @@ class Messenger
             exit;
         }
 
-        $response = json_decode(file_get_contents('php://input'), true);
-
-        if (empty($response['entry'][0]['messaging'][0]['message']['text']) && empty($response['entry'][0]['messaging'][0]['postback']['payload'])) {
-            exit;
-        }
-
-        return $response;
+        return json_decode(file_get_contents('php://input'), true);
     }
 }
