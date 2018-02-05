@@ -51,6 +51,10 @@ class Attachment
             $model->setUrl($payload['url']);
         }
 
+        if (!empty($payload['is_reusable'])) {
+            $model->setIsReusable($payload['is_reusable']);
+        }
+
         if (!empty($payload['template_type'])) {
             $model->setTemplateType($payload['template_type']);
         }

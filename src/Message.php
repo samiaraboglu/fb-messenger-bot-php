@@ -128,12 +128,16 @@ class Message
      * Populate audio
      *
      * @param string $url Url
+     * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function audio($url)
+    public function audio($url, $isReusable = false)
     {
-        $this->setAttachment('audio', ['url' => $url]);
+        $this->setAttachment('audio', [
+            'url' => $url,
+            'is_reusable' => $isReusable
+        ]);
 
         return $this;
     }
@@ -142,12 +146,16 @@ class Message
      * Populate video
      *
      * @param string $url Url
+     * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function video($url)
+    public function video($url, $isReusable = false)
     {
-        $this->setAttachment('video', ['url' => $url]);
+        $this->setAttachment('video', [
+            'url' => $url,
+            'is_reusable' => $isReusable
+        ]);
 
         return $this;
     }
@@ -156,12 +164,16 @@ class Message
      * Populate image
      *
      * @param string $url Url
+     * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function image($url)
+    public function image($url, $isReusable = false)
     {
-        $this->setAttachment('image', ['url' => $url]);
+        $this->setAttachment('image', [
+            'url' => $url,
+            'is_reusable' => $isReusable
+        ]);
 
         return $this;
     }
@@ -170,12 +182,16 @@ class Message
      * Populate file
      *
      * @param string $url Url
+     * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function file($url)
+    public function file($url, $isReusable = false)
     {
-        $this->setAttachment('file', ['url' => $url]);
+        $this->setAttachment('file', [
+            'url' => $url,
+            'is_reusable' => $isReusable
+        ]);
 
         return $this;
     }

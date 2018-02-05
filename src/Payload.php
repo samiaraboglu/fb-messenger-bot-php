@@ -14,6 +14,11 @@ class Payload
     protected $url;
 
     /**
+     * @var bool
+     */
+    protected $isReusable;
+
+    /**
      * @var string
      */
     protected $templateType;
@@ -46,6 +51,26 @@ class Payload
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set is reusable
+     *
+     * @param bool $isReusable Is reusable
+     */
+    public function setIsReusable($isReusable)
+    {
+        $this->isReusable = $isReusable;
+    }
+
+    /**
+     * Get is reusable
+     *
+     * @return bool Is reusable
+     */
+    public function getIsReusable()
+    {
+        return $this->isReusable;
     }
 
     /**
