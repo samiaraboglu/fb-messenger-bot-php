@@ -244,6 +244,33 @@ class Message
     }
 
     /**
+     * Populate url button
+     *
+     * @param string $text Text
+     * @param string $title Title
+     * @param string $url Url
+     *
+     * @return Message
+     */
+    public function url($text, $title, $url)
+    {
+        $payload = [
+            'template_type' => 'button',
+            'text' => $text,
+            'buttons' => [
+                [
+                    'title' => $title,
+                    'url' => $url
+                ]
+            ],
+        ];
+
+        $this->setAttachment('template', $payload);
+
+        return $this;
+    }
+
+    /**
      * Populate button
      *
      * @param string $text Text
