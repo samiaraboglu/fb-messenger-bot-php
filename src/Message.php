@@ -315,4 +315,31 @@ class Message
 
         return $this;
     }
+
+    /**
+     * Populate qucik replies text
+     *
+     * @param string $text Text
+     * @param string $title Title
+     * @param string $postback Postback
+     *
+     * @return Message
+     */
+    public function qrText($text, $title, $postback, $image = null)
+    {
+        $this->setText($text);
+
+        $payload = [
+            'title' => $title,
+            'payload' => $postback,
+        ];
+
+        if (!empty($image)) {
+            $payload['image'] = $image;
+        }
+
+        $this->setQuickReplies($payload);
+
+        return $this;
+    }
 }
