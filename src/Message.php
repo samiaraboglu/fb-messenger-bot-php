@@ -360,4 +360,22 @@ class Message
 
         return $this;
     }
+
+    /**
+     * Populate qucik replies phone number
+     *
+     * @param string $text Text
+     *
+     * @return Message
+     */
+    public function phoneNumber($text)
+    {
+        $this->setText($text);
+
+        $this->setQuickReplies([
+            'type' => 'user_phone_number'
+        ]);
+
+        return $this;
+    }
 }
