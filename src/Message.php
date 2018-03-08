@@ -378,4 +378,22 @@ class Message
 
         return $this;
     }
+
+    /**
+     * Populate qucik replies email
+     *
+     * @param string $text Text
+     *
+     * @return Message
+     */
+    public function email($text)
+    {
+        $this->setText($text);
+
+        $this->setQuickReplies([
+            'type' => 'user_email'
+        ]);
+
+        return $this;
+    }
 }
