@@ -244,7 +244,7 @@ class Message
     }
 
     /**
-     * Populate url button
+     * Populate simple url button
      *
      * @param string $text Text
      * @param string $title Title
@@ -261,6 +261,34 @@ class Message
                 [
                     'title' => $title,
                     'url' => $url
+                ]
+            ],
+        ];
+
+        $this->setAttachment('template', $payload);
+
+        return $this;
+    }
+
+    /**
+     * Populate simple postback button
+     *
+     * @param string $text Text
+     * @param string $title Title
+     * @param string $postback Postback
+     *
+     * @return Message
+     */
+    public function postback($text, $title, $postback)
+    {
+        $payload = [
+            'template_type' => 'button',
+            'text' => $text,
+            'buttons' => [
+                [
+                    'type'=> 'postback',
+                    'title' => $title,
+                    'payload' => $postback
                 ]
             ],
         ];
