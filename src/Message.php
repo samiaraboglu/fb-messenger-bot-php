@@ -80,17 +80,14 @@ class Message
 
         $type = !empty($quickReplie['type']) ? $quickReplie['type'] : 'text';
 
-        if (!empty($type)) {
-            $model->setContentType($type);
+        $model->setContentType($type);
+
+        if (!empty($quickReplie['title'])) {
+            $model->setPayload($quickReplie['payload']);
         }
 
         if (!empty($quickReplie['title'])) {
             $model->setTitle($quickReplie['title']);
-        }
-
-        // TO DO
-        if (1) {
-            $model->setPayload('<POSTBACK_PAYLOAD>');
         }
 
         if (!empty($quickReplie['image'])) {
@@ -225,25 +222,6 @@ class Message
     }
 
     /**
-     * Populate quick replies
-     *
-     * @param string $text Text
-     * @param array $quickReplies Quick replies
-     *
-     * @return Message
-     */
-    public function quickReplies($text, $quickReplies)
-    {
-        $this->setText($text);
-
-        foreach ($quickReplies as $quickReplie) {
-            $this->setQuickReplies($quickReplie);
-        }
-
-        return $this;
-    }
-
-    /**
      * Populate simple url button
      *
      * @param string $text Text
@@ -315,6 +293,25 @@ class Message
         ];
 
         $this->setAttachment('template', $payload);
+
+        return $this;
+    }
+
+    /**
+     * Populate quick replies
+     *
+     * @param string $text Text
+     * @param array $quickReplies Quick replies
+     *
+     * @return Message
+     */
+    public function quickReplies($text, $quickReplies)
+    {
+        $this->setText($text);
+
+        foreach ($quickReplies as $quickReplie) {
+            $this->setQuickReplies($quickReplie);
+        }
 
         return $this;
     }
