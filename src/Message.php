@@ -342,4 +342,22 @@ class Message
 
         return $this;
     }
+
+    /**
+     * Populate qucik replies location
+     *
+     * @param string $text Text
+     *
+     * @return Message
+     */
+    public function location($text)
+    {
+        $this->setText($text);
+
+        $this->setQuickReplies([
+            'type' => 'location'
+        ]);
+
+        return $this;
+    }
 }
