@@ -129,6 +129,36 @@ class Messenger
         $body->setRecipient($recipientId);
         $body->setMessage($message);
 
+        $this->sendApi($body);
+    }
+
+    /**
+     * Sender action
+     *
+     * @param int $recipientId Recipient id
+     * @param string $type
+     *
+     * @return array
+     */
+    public function senderAction($recipientId, $type)
+    {
+        $body = new Body;
+
+        $body->setRecipient($recipientId);
+        $body->setSenderAction($type);
+
+        $this->sendApi($body);
+    }
+
+    /**
+     * Send api
+     *
+     * @param Boyd $body
+     *
+     * @return array
+     */
+    public function sendApi(Body $body)
+    {
         $this->setBody($body);
 
         $helper = new Helper;

@@ -19,6 +19,11 @@ class Body
     protected $message;
 
     /**
+     * @var Sender action
+     */
+    protected $senderAction;
+
+    /**
      * Set recipient
      *
      * @param int $recipientId Recipient id
@@ -60,5 +65,25 @@ class Body
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set sender action
+     *
+     * @param string $senderAction
+     */
+    public function setSenderAction($senderAction)
+    {
+        $this->senderAction = $senderAction;
+    }
+
+    /**
+     * Get sender action
+     *
+     * @return Sender action
+     */
+    public function getSenderAction()
+    {
+        return $this->senderAction;
     }
 }
