@@ -123,7 +123,10 @@ class Payload
         $model = new Button();
 
         $model->setType(!empty($payload['type']) ? $payload['type'] : 'web_url');
-        $model->setTitle($payload['title']);
+
+        if (!empty($payload['title'])) {
+            $model->setTitle($payload['title']);
+        }
 
         if (!empty($payload['payload'])) {
             $model->setPayload($payload['payload']);

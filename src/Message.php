@@ -264,9 +264,35 @@ class Message
             'text' => $text,
             'buttons' => [
                 [
-                    'type'=> 'postback',
+                    'type' => 'postback',
                     'title' => $title,
                     'payload' => $postback
+                ]
+            ],
+        ];
+
+        $this->setAttachment('template', $payload);
+
+        return $this;
+    }
+
+    /**
+     * Populate login button
+     *
+     * @param string $text Text
+     * @param string $url Url
+     *
+     * @return Message
+     */
+    public function login($text, $url)
+    {
+        $payload = [
+            'template_type' => 'button',
+            'text' => $text,
+            'buttons' => [
+                [
+                    'type' => 'account_link',
+                    'url' => $url
                 ]
             ],
         ];
