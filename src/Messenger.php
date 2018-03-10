@@ -129,7 +129,7 @@ class Messenger
         $body->setRecipient($recipientId);
         $body->setMessage($message);
 
-        $this->sendApi($body);
+        return $this->sendApi($body);
     }
 
     /**
@@ -147,7 +147,7 @@ class Messenger
         $body->setRecipient($recipientId);
         $body->setSenderAction($type);
 
-        $this->sendApi($body);
+        return $this->sendApi($body);
     }
 
     /**
