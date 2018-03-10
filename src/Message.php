@@ -325,7 +325,7 @@ class Message
      *
      * @return Message
      */
-    public function qrText($text, $title, $postback, $image = null)
+    public function quickReplie($text, $title, $postback, $image = null)
     {
         $this->setText($text);
 
