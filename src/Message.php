@@ -303,6 +303,30 @@ class Message
     }
 
     /**
+     * Populate logout button
+     *
+     * @param string $text Text
+     *
+     * @return Message
+     */
+    public function logout($text)
+    {
+        $payload = [
+            'template_type' => 'button',
+            'text' => $text,
+            'buttons' => [
+                [
+                    'type' => 'account_unlink'
+                ]
+            ],
+        ];
+
+        $this->setAttachment('template', $payload);
+
+        return $this;
+    }
+
+    /**
      * Populate button
      *
      * @param string $text Text
