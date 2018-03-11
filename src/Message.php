@@ -124,21 +124,21 @@ class Message
     /**
      * Populate audio
      *
-     * @param string $url Url
+     * @param string|int $resource Url or attachment id
      * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function audio($url, $isReusable = false)
+    public function audio($resource, $isReusable = false)
     {
         $payload = [
             'is_reusable' => $isReusable
         ];
 
-        if (is_int($url)) {
-            $payload['attachment_id'] = $url;
+        if (is_int($resource)) {
+            $payload['attachment_id'] = $resource;
         } else {
-            $payload['url'] = $url;
+            $payload['url'] = $resource;
         }
 
         $this->setAttachment('audio', $payload);
@@ -149,21 +149,21 @@ class Message
     /**
      * Populate video
      *
-     * @param string $url Url
+     * @param string|int $resource Url or attachment id
      * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function video($url, $isReusable = false)
+    public function video($resource, $isReusable = false)
     {
         $payload = [
             'is_reusable' => $isReusable
         ];
 
-        if (is_int($url)) {
-            $payload['attachment_id'] = $url;
+        if (is_int($resource)) {
+            $payload['attachment_id'] = $resource;
         } else {
-            $payload['url'] = $url;
+            $payload['url'] = $resource;
         }
 
         $this->setAttachment('video', $payload);
@@ -174,21 +174,21 @@ class Message
     /**
      * Populate image
      *
-     * @param string $url Url
+     * @param string|int $resource Url or attachment id
      * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function image($url, $isReusable = false)
+    public function image($resource, $isReusable = false)
     {
         $payload = [
             'is_reusable' => $isReusable
         ];
 
-        if (is_int($url)) {
-            $payload['attachment_id'] = $url;
+        if (is_int($resource)) {
+            $payload['attachment_id'] = $resource;
         } else {
-            $payload['url'] = $url;
+            $payload['url'] = $resource;
         }
 
         $this->setAttachment('image', $payload);
@@ -199,21 +199,21 @@ class Message
     /**
      * Populate file
      *
-     * @param string $url Url
+     * @param string|int $resource Url or attachment id
      * @param bool $isReusable Is reusable
      *
      * @return Message
      */
-    public function file($url, $isReusable = false)
+    public function file($resource, $isReusable = false)
     {
         $payload = [
             'is_reusable' => $isReusable
         ];
 
-        if (is_int($url)) {
-            $payload['attachment_id'] = $url;
+        if (is_int($resource)) {
+            $payload['attachment_id'] = $resource;
         } else {
-            $payload['url'] = $url;
+            $payload['url'] = $resource;
         }
 
         $this->setAttachment('file', $payload);
