@@ -41,6 +41,11 @@ class Messenger
     protected $body;
 
     /**
+     * @var array
+     */
+    protected $services = [];
+
+    /**
      * Messenger constructor
      *
      * @param array $config Config
@@ -220,5 +225,31 @@ class Messenger
         }
 
         return json_decode(file_get_contents('php://input'), true);
+    }
+
+    /**
+     * Populate service
+     *
+     * @param string $name Service name
+     *
+     * @return object
+     */
+    public function __get($name)
+    {
+        if (!in_array($name, ['message'])) {
+            $trace = debug_backtrace();
+
+            throw new \Exception(sprintf('Undefined property via __get(): %s in %s on line %u', $name, $trace[0]['file'], $trace[0]['line']));
+        }
+
+        if (isset($this->services[$name])) {
+            return $this->services[$name];
+        }
+
+        $serviceName = sprintf('%s\\%s', __NAMESPACE__, ucfirst($name));
+
+        $this->services[$name] = new $serviceName($this);
+
+        return $this->services[$name];
     }
 }
