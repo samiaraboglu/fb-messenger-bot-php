@@ -1,6 +1,7 @@
 # fb-messenger-bot-php
 
-Facebook Messenger [Official Documentation](https://developers.facebook.com/docs/messenger-platform).
+- [Facebook Messenger Official Documentation](https://developers.facebook.com/docs/messenger-platform)
+- [Bundle for Symfony](https://github.com/samiaraboglu/fb-messenger-api-bundle)
 
 ### Installing
 
@@ -327,8 +328,17 @@ $response = $messenger->senderAction(<PSID>, '<ACTION_TYPE>');
 ```
 
 ### Webhooks
-Listen to user messages
+This for require *verify_token*
 
+Config
+```php
+$messenger = new \FbMessengerBot\Messenger([
+    'access_token' => '<YOUR_ACCESS_TOKEN>',
+    'verify_token' => '<YOUR_VERIFY_TOKEN>'
+]);
+```
+
+Listen to user messages.
 ```php
 $response = $messenger->listen();
 ```
