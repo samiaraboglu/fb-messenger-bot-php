@@ -34,6 +34,11 @@ class Payload
     protected $buttons;
 
     /**
+     * @var int
+     */
+    protected $attachmentId;
+
+    /**
      * Set url
      *
      * @param string $url Url
@@ -111,6 +116,26 @@ class Payload
     public function getText()
     {
         return $this->text;
+    }
+
+    /**
+     * Set attachment id
+     *
+     * @param int $attachmentId Attachment id
+     */
+    public function setAttachmentId($attachmentId)
+    {
+        $this->attachmentId = $attachmentId;
+    }
+
+    /**
+     * Get attachment id
+     *
+     * @return int Attachment id
+     */
+    public function getAttachmentId()
+    {
+        return $this->attachmentId;
     }
 
     /**

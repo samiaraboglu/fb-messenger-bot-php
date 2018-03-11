@@ -63,6 +63,10 @@ class Attachment
             $model->setText($payload['text']);
         }
 
+        if (!empty($payload['attachment_id'])) {
+            $model->setAttachmentId($payload['attachment_id']);
+        }
+
         if (!empty($payload['buttons'])) {
             foreach ($payload['buttons'] as $button) {
                 $model->setButton($button);

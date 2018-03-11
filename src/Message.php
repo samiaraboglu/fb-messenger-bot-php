@@ -131,10 +131,17 @@ class Message
      */
     public function audio($url, $isReusable = false)
     {
-        $this->setAttachment('audio', [
-            'url' => $url,
+        $payload = [
             'is_reusable' => $isReusable
-        ]);
+        ];
+
+        if (is_int($url)) {
+            $payload['attachment_id'] = $url;
+        } else {
+            $payload['url'] = $url;
+        }
+
+        $this->setAttachment('audio', $payload);
 
         return $this;
     }
@@ -149,10 +156,17 @@ class Message
      */
     public function video($url, $isReusable = false)
     {
-        $this->setAttachment('video', [
-            'url' => $url,
+        $payload = [
             'is_reusable' => $isReusable
-        ]);
+        ];
+
+        if (is_int($url)) {
+            $payload['attachment_id'] = $url;
+        } else {
+            $payload['url'] = $url;
+        }
+
+        $this->setAttachment('video', $payload);
 
         return $this;
     }
@@ -167,10 +181,17 @@ class Message
      */
     public function image($url, $isReusable = false)
     {
-        $this->setAttachment('image', [
-            'url' => $url,
+        $payload = [
             'is_reusable' => $isReusable
-        ]);
+        ];
+
+        if (is_int($url)) {
+            $payload['attachment_id'] = $url;
+        } else {
+            $payload['url'] = $url;
+        }
+
+        $this->setAttachment('image', $payload);
 
         return $this;
     }
@@ -185,10 +206,17 @@ class Message
      */
     public function file($url, $isReusable = false)
     {
-        $this->setAttachment('file', [
-            'url' => $url,
+        $payload = [
             'is_reusable' => $isReusable
-        ]);
+        ];
+
+        if (is_int($url)) {
+            $payload['attachment_id'] = $url;
+        } else {
+            $payload['url'] = $url;
+        }
+
+        $this->setAttachment('file', $payload);
 
         return $this;
     }
