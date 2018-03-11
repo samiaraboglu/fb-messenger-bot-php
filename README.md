@@ -168,7 +168,7 @@ $message->quickReplies('<MESSAGE_TEXT>', [
 ]);
 ```
 
-##### Text Width Image
+##### Text With Image
 ```php
 // simple
 $message->quickReplie('<MESSAGE_TEXT>', '<BUTTON_TITLE>', '<POSTBACK_PAYLOAD>', '<URL.jpg>');
@@ -281,7 +281,7 @@ Array
 )
 ```
 
-Send message width *attachment_id*
+Send message with *attachment_id*
 
 ```php
 $message->image(<ATTACHMENT_ID>);
