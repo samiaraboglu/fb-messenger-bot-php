@@ -1,5 +1,9 @@
 # fb-messenger-bot-php
 
+[![Latest Stable Version](https://poser.pugx.org/samiaraboglu/fb-messenger-bot-php/v/stable)](https://packagist.org/packages/samiaraboglu/fb-messenger-bot-php)
+[![Total Downloads](https://poser.pugx.org/samiaraboglu/fb-messenger-bot-php/downloads)](https://packagist.org/packages/samiaraboglu/fb-messenger-bot-php)
+[![License](https://poser.pugx.org/samiaraboglu/fb-messenger-bot-php/license)](https://packagist.org/packages/samiaraboglu/fb-messenger-bot-php)
+
 - [Facebook Messenger Official Documentation](https://developers.facebook.com/docs/messenger-platform)
 - [Bundle for Symfony](https://github.com/samiaraboglu/fb-messenger-api-bundle)
 
