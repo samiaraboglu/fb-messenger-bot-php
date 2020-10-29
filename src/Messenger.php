@@ -48,14 +48,15 @@ class Messenger
     /**
      * Messenger constructor
      *
-     * @param array $config Config
+     * @param string $accessToken
+     * @param string $verifyToken
      */
-    public function __construct($config)
+    public function __construct($accessToken, $verifyToken)
     {
-        $this->setAccessToken($config['access_token']);
+        $this->setAccessToken($accessToken);
 
-        if (!empty($config['verify_token'])) {
-            $this->setVerifyToken($config['verify_token']);
+        if (!empty($verifyToken)) {
+            $this->setVerifyToken($verifyToken);
         }
     }
 
