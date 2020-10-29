@@ -16,9 +16,7 @@ $ composer require samiaraboglu/fb-messenger-bot-php
 
 Config
 ```php
-$messenger = new \FbMessengerBot\Messenger([
-    'access_token' => '<YOUR_ACCESS_TOKEN>'
-]);
+$messenger = new \FbMessengerBot\Messenger('<YOUR_ACCESS_TOKEN>');
 ```
 
 # Conversation Components
@@ -336,10 +334,7 @@ This for require *verify_token*
 
 Config
 ```php
-$messenger = new \FbMessengerBot\Messenger([
-    'access_token' => '<YOUR_ACCESS_TOKEN>',
-    'verify_token' => '<YOUR_VERIFY_TOKEN>'
-]);
+$messenger = new \FbMessengerBot\Messenger('<YOUR_ACCESS_TOKEN>', '<YOUR_VERIFY_TOKEN>');
 ```
 
 Listen to user messages.
